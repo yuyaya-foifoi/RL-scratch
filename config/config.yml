@@ -1,0 +1,16 @@
+Agent: DQN
+
+Env:
+  name: CartPole-v0
+  action_size: 2
+  state_size: 4
+
+DQN:
+  episodes: 100
+  sync_interval: 10
+  gamma: 0.98
+  lr: 0.001
+  epsilon: 0.1
+  batch_size: 64
+  buffer_size: 10000
+  loss_function: L1smooth
