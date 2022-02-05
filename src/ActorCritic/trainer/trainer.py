@@ -10,17 +10,16 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from REINFORCE.agent.REINFORCEAgent import REINFORCEAgent
-from util.get_agent import get_agent
-from util.save_dir import get_REINFORCEdir
+from ActorCritic.agent.ActorCriticAgent import ActorCriticAgent
+from util.save_dir import get_ActorCriticdir
 
 
-def REINFORCEtrainer(cfg: dict) -> None:
+def ActorCritictrainer(cfg: dict) -> None:
 
-    episodes = cfg["REINFORCE"]["episodes"]
+    episodes = cfg["ActorCritic"]["episodes"]
     env = gym.make(cfg["Env"]["name"])
 
-    agent = REINFORCEAgent(cfg)
+    agent = ActorCriticAgent(cfg)
     reward_log = []
 
     for episode in range(episodes):
@@ -29,15 +28,13 @@ def REINFORCEtrainer(cfg: dict) -> None:
         sum_reward = 0
 
         while not done:
-
             action, derivative = agent.get_action(state)
             next_state, reward, done, info = env.step(action.item())
 
-            agent.add(reward, derivative)
+            agent.update(state, derivative, reward, next_state, done)
+
             state = next_state
             sum_reward += reward
-
-        agent.update()
 
         reward_log.append(sum_reward)
         if episode % 100 == 0:
@@ -45,7 +42,7 @@ def REINFORCEtrainer(cfg: dict) -> None:
 
     df = pd.DataFrame(reward_log, columns=["reward_log"])
 
-    base_path = get_REINFORCEdir(cfg)
+    base_path = get_ActorCriticdir(cfg)
     csv_path = os.path.join(base_path, "log.csv")
     png_path = os.path.join(base_path, "log.png")
     df.to_csv(csv_path)
@@ -72,4 +69,4 @@ if __name__ == "__main__":
     with open(args.config) as fp:
         cfg = yaml.load(fp)
 
-    REINFORCEtrainer(cfg)
+    ActorCritictrainer(cfg)

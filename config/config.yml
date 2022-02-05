@@ -2,8 +2,8 @@ Agent: REINFORC
 
 Env:
   name: CartPole-v0
-  action_size: 2
   state_size: 4
+  action_size: 2
 
 DQN:
   episodes: 100
@@ -19,3 +19,10 @@ REINFORCE:
   episodes: 100
   gamma: 0.98
   lr: 0.001
+
+ActorCritic:
+  episodes: 100
+  gamma: 0.98
+  pl_net_lr: 0.001
+  v_net_lr: 0.001
+  loss_function: L1smooth

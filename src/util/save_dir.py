@@ -27,3 +27,18 @@ def get_REINFORCEdir(cfg: dict) -> str:
     os.makedirs(path, exist_ok=True)
 
     return path
+
+
+def get_ActorCriticdir(cfg: dict) -> str:
+
+    gamma = str(cfg["ActorCritic"]["gamma"])
+    lr_pl_net = str(cfg["ActorCritic"]["pl_net_lr"])
+    lr_v_net = str(cfg["ActorCritic"]["v_net_lr"])
+
+    path = "./logs/ActorCritic/lrPL_{}__lrV_{}__gamma_{}".format(
+        lr_pl_net, lr_v_net, gamma
+    )
+
+    os.makedirs(path, exist_ok=True)
+
+    return path
