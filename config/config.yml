@@ -1,4 +1,4 @@
-Agent: DQN
+Agent: REINFORC
 
 Env:
   name: CartPole-v0
@@ -14,3 +14,8 @@ DQN:
   batch_size: 64
   buffer_size: 10000
   loss_function: L1smooth
+
+REINFORCE:
+  episodes: 100
+  gamma: 0.98
+  lr: 0.001

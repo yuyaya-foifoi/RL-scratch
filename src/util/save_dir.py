@@ -16,3 +16,14 @@ def get_DQNdir(cfg: dict) -> str:
     os.makedirs(path, exist_ok=True)
 
     return path
+
+
+def get_REINFORCEdir(cfg: dict) -> str:
+    lr = str(cfg["REINFORCE"]["lr"])
+    gamma = str(cfg["REINFORCE"]["gamma"])
+
+    path = "./logs/REINFORCE/lr_{}__gamma_{}".format(lr, gamma)
+
+    os.makedirs(path, exist_ok=True)
+
+    return path
