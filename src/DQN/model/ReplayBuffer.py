@@ -1,7 +1,7 @@
-from collections import deque
 import random
-import numpy as np
+from collections import deque
 
+import numpy as np
 
 
 class ReplayBuffer:
@@ -9,7 +9,14 @@ class ReplayBuffer:
         self.buffer = deque(maxlen=buffer_size)
         self.batch_size = batch_size
 
-    def add(self, state: np.array, action: int, reward: float, next_state: np.array, done: bool) -> None:
+    def add(
+        self,
+        state: np.array,
+        action: int,
+        reward: float,
+        next_state: np.array,
+        done: bool,
+    ) -> None:
         data = (state, action, reward, next_state, done)
         self.buffer.append(data)
 
