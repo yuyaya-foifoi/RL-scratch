@@ -12,6 +12,18 @@ from REINFORCE.model.PolicyNet import PolicyNet
 class REINFORCEAgent:
     def __init__(self, cfg: dict) -> None:
 
+        """
+        方策勾配法 : エージェントの行動確率をNNで表現
+        theta_{t+1} = theta_{t} + alpha * J'(theta)
+        J(theta) : エピソードあたりの報酬の期待値
+
+        1) 方策に従って行動の決定
+        2) 環境から報酬と次の状態を得る
+        3) 状態(t), 行動(t), 報酬(t), 状態(t+1)を得る
+        4) エピソード終了後, 報酬の期待値を計算 <- つまりはモンテカルロ
+        5) エピソードで集まった全てのデータを用いてNNを学習
+        """
+
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         # 環境に関する情報
